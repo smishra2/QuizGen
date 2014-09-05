@@ -1,13 +1,19 @@
-<dependencies>
-<dependency>
-    <groupId>edu.stanford.nlp</groupId>
-    <artifactId>stanford-corenlp</artifactId>
-    <version>3.4.1</version>
-</dependency>
-<dependency>
-    <groupId>edu.stanford.nlp</groupId>
-    <artifactId>stanford-corenlp</artifactId>
-    <version>3.4.1</version>
-    <classifier>models</classifier>
-</dependency>
-</dependencies>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.consciousfish.quizgen</groupId>
+  <artifactId>QuizGen</artifactId>
+  <version>1</version>
+	<dependencies>
+	<dependency>
+		<groupId>edu.stanford.nlp</groupId>
+		<artifactId>stanford-corenlp</artifactId>
+		<version>3.4.1</version>
+	</dependency>
+	<dependency>
+		<groupId>edu.stanford.nlp</groupId>
+		<artifactId>stanford-corenlp</artifactId>
+		<version>3.4.1</version>
+		<classifier>models</classifier>
+	</dependency>
+	</dependencies>
+</project>
