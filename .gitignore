@@ -13,3 +13,8 @@ hs_err_pid*
 
 # maven distribution dir
 target
+
+#gradle local and distribution dir
+.gradle
+build
+

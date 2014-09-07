@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'com.consciousfish.quizgen.Test'
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "edu.stanford.nlp:stanford-corenlp:3.4.1"
+    compile group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.4.1', classifier: 'models'
+    
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.consciousfish.quizgen.Test'
+    }
+}
