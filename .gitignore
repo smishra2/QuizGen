@@ -18,3 +18,7 @@ target
 .gradle
 build
 
+#IntelliJ related
+*.iml
+.idea
+
