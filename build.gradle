@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = 'com.consciousfish.quizgen.Test'
+mainClassName = 'com.consciousfish.quizgen.QuizGenMain'
 
 version = '1.0'
 
