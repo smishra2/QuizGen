@@ -30,7 +30,9 @@ public class Test {
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
         
         // read some text in the text variable
-        String text = "Jonathan is a great kid. I just love the guy. Without him, I am nothing."; // Add your text here!
+        String text = "A week after U.S.-led airstrikes in Syria began, lawmakers continued to question President Barack Obama's strategy for defeating the militant group ISIS, which he admitted in a televised interview Sunday was more powerful than the U.S. initially believed.\n" +
+                "Echoing sentiments also expressed by James Clapper, the head of U.S. intelligence services, Obama said the government \"underestimated what had been taking place in Syria\" during its civil war, allowing Syria to become \"ground zero for jihadists around the world.\"\n" +
+                "Speaking in a taped interview with CBS' \"60 Minutes,\" Obama said the terrorists were remnants of al Qaeda in Iraq, which after being diminished by U.S. forces \"went back underground.\""; // Add your text here!
         System.out.println(text);
         
         // create an empty Annotation just with the given text
