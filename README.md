@@ -3,7 +3,7 @@ QuizGen
 
 Automatic quiz generation system
 
-To build, please have Java (1.6 and up) and Gradle 2.0 installed. Navigate to the QuizGen directory and type `grunt build`.
+To build, please have Java (1.6 and up) and Gradle 2.0 installed. Navigate to the QuizGen directory and type `gradle build`.
 
 To run, use either:
 
