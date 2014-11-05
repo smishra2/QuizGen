@@ -22,7 +22,7 @@ public class QuestionCreatorCollection implements QuestionCreator {
     }
 
     @Override
-    public List<Question> createQuestion(CoreMap sentence, Map<Integer, CorefChain> coreferences) {
+    public List<Question> createQuestion(List<CoreMap> sentence, Map<Integer, CorefChain> coreferences) {
         ArrayList<Question> questions = new ArrayList<Question>();
         for(QuestionCreator creator : listeners) {
             questions.addAll(creator.createQuestion(sentence, coreferences));

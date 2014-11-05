@@ -12,5 +12,5 @@ import java.util.Map;
  * Created by Jonathan on 2014/10/30.
  */
 public interface QuestionCreator {
-    public List<Question> createQuestion(CoreMap sentence, Map<Integer, CorefChain> coreferences);
+    public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences);
 }
