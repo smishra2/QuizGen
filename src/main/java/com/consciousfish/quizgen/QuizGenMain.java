@@ -1,5 +1,9 @@
 package com.consciousfish.quizgen;
 
+import com.consciousfish.quizgen.interfaces.Output;
+import com.consciousfish.quizgen.interfaces.Question;
+import com.consciousfish.quizgen.questioncreators.QuestionCreatorCollection;
+import com.consciousfish.quizgen.questioncreators.creatorcomponents.BeingQuestionCreator;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
@@ -17,45 +21,26 @@ import java.util.Properties;
  * NOTE: This design is highly tentative at the moment.
  */
 public class QuizGenMain {
-
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println("Loading questions...");
         System.out.println();
 
-        String input = FileIO.read();
+        //String input = FileIO.read();
+        String input = "Bob is a dog. Bob is hungry.";
 
-        /*
-         * First, we initalize the parser and annotate the document.
-         */
-        // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and coreference resolution
-        Properties props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        CoreNLPParser parser = new CoreNLPParser();
+        parser.process(input);
 
-        // create an empty Annotation just with the given text
-        Annotation document = new Annotation(input);
+        QuestionCreatorCollection questionCreator = new QuestionCreatorCollection(new BeingQuestionCreator());
+        List<Question> questions = questionCreator.createQuestion(parser.getSentences(), parser.getCoreferences());
 
-        // run all Annotators on this text
-        pipeline.annotate(document);
-
-        /*
-         * Next, we run through the question creators and asssemble the list
-         * of questions.
-         */
-
-        List<String> questions = new ArrayList<String>();
-
-        //questions.add(NamedEntityQuestionCreator.create(document));
-
-        System.out.println("Here are your questions: ");
-        String[] questionsArray = new String[questions.size()];
-        int i = 0;
-        for (String question : questions) {
-            System.out.println(question);
-            questionsArray[i] = question;
-            i++;
-        }
-
-        FileIO.write(questionsArray);
+        JsonOutput output = new JsonOutput(new Output() {
+            @Override
+            public void output(String out) {
+                System.out.println(out);
+                FileIO.write(out);
+            }
+        });
+        output.sendOutput(questions);
     }
 }

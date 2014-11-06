@@ -17,11 +17,9 @@ import java.util.Map;
  * Created by Sachit on 9/28/2014.
  */
 public class NamedEntityQuestionCreator implements QuestionCreator {
+
     @Override
-    public List<Question> createQuestion(CoreMap sentence, Map<Integer, CorefChain> coreferences) {
-        // TODO: implement me lol
-        Tree parseTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-        SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
-        return new ArrayList<Question>();
+    public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
+        return null;
     }
 }

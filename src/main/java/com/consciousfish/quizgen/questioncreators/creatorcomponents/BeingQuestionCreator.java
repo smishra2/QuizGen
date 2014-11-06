@@ -20,7 +20,7 @@ import java.util.*;
  * Created by Jonathan on 2014/10/30.
  */
 public class BeingQuestionCreator implements QuestionCreator {
-    private static final boolean test = true;
+    private static final boolean test = false;
 
     // Naive implementation. Only sentence rearrangement, yes is always the answer.
     // Assuming all sentences with nn roots are being sentences with the root being the object of the being verb
