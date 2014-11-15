@@ -23,5 +23,5 @@ build
 .idea
 
 #Python related
-_pycache_/
+__pycache__/
 
