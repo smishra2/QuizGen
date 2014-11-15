@@ -18,10 +18,10 @@ import java.util.Map;
  */
 public class NamedEntityQuestionCreator implements QuestionCreator {
     @Override
-    public List<Question> createQuestion(CoreMap sentence, Map<Integer, CorefChain> coreferences) {
+    public List<Question> createQuestion(List<CoreMap> sentence, Map<Integer, CorefChain> coreferences) {
         // TODO: implement me lol
-        Tree parseTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-        SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
+        //Tree parseTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+        //SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
         return new ArrayList<Question>();
     }
 }
