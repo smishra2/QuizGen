@@ -1,10 +1,3 @@
-#import urllib.request
-#urllib.request.p
-#print(urllib.request.urlopen("http://www.cnn.com/2014/11/05/politics/elections-wednesday/index.html?hpt=hp_t1").read())
-#urllib.request.urlcleanup()
-#import http.client
-#conn = http.client.HTTPConnection("https://readability.com")
-#conn.request("GET", "/api/content/v1/parser?url=http://www.cnn.com/2014/11/05/politics/elections-wednesday/index.html?hpt=hp_t1")
 from TextExtractor import TextExtractor
 from flask import Flask, request, jsonify
 app = Flask(__name__)
