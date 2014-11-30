@@ -1,5 +1,5 @@
 from TextExtractor import TextExtractor
-from flask import Flask, request, jsonify
+from flask import Flask, request
 app = Flask(__name__)
 
 @app.route("/")
