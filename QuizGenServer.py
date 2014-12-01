@@ -1,5 +1,7 @@
+import subprocess
 from TextExtractor import TextExtractor
 from flask import Flask, request
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -8,11 +10,20 @@ def hello():
 
 @app.route("/quizme", methods=['GET'])
 def extract():
+    #Extract text
     print("Received quizme GET request, website URL = " +
           str(request.args.get('websiteURL', '')))
     extractor = TextExtractor(request.args.get('websiteURL', ''))
     extractor.extract()
-    return "something"
+
+    #Peform java processing
+    #subprocess.call()
+
+    # Return result from file
+    f = open('res/Output', 'r')
+    result = f.read()
+    f.close()
+    return result
 
 @app.route("/test", methods=['GET'])
 def test():
