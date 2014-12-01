@@ -34,4 +34,4 @@ class TextExtractor:
         # Put text in file
         f = open('res/Input', 'w')
         f.write(decoded_json['text'])
-        f.close
+        f.close()
