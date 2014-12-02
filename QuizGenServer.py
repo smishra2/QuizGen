@@ -17,7 +17,7 @@ def extract():
     extractor.extract()
 
     #Peform java processing
-    #subprocess.call()
+    subprocess.check_call("gradle run", shell=True)
 
     # Return result from file
     f = open('res/Output', 'r')
