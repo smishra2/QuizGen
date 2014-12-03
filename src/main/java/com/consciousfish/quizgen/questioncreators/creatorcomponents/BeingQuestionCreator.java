@@ -20,12 +20,11 @@ import java.util.*;
  * Created by Jonathan on 2014/10/30.
  */
 public class BeingQuestionCreator implements QuestionCreator {
-    private static final boolean test = true;
+    private static final boolean test = false;
 
     // Naive implementation. Only sentence rearrangement, yes is always the answer.
     // Assuming all sentences with nn roots are being sentences with the root being the object of the being verb
     // ex. Bob is sick. Sick = nn root. Bob = nsubj related nnp/nn child, is = cop related vbz child
-    @Override
     public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if(test) System.out.println("createQuestion called");
         List<Question> questions = new ArrayList<Question>();
@@ -100,12 +99,10 @@ public class BeingQuestionCreator implements QuestionCreator {
                         final String q = questionClone;
                         final String a = "yes";
 
-                        @Override
                         public String getQuestion() {
                             return q;
                         }
 
-                        @Override
                         public String getAnswer() {
                             return a;
                         }

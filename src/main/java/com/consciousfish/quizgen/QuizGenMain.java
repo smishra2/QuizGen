@@ -1,11 +1,18 @@
 package com.consciousfish.quizgen;
 
+import com.consciousfish.quizgen.interfaces.Output;
+import com.consciousfish.quizgen.interfaces.Question;
+import com.consciousfish.quizgen.questioncreators.QuestionCreatorCollection;
+import com.consciousfish.quizgen.questioncreators.creatorcomponents.BeingQuestionCreator;
+import com.consciousfish.quizgen.questioncreators.creatorcomponents.OnPrepQuestionCreator;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 /**
  * Created by Sachit on 9/28/2014.
@@ -17,45 +24,31 @@ import java.util.Properties;
  * NOTE: This design is highly tentative at the moment.
  */
 public class QuizGenMain {
-
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println("Loading questions...");
         System.out.println();
 
-        String input = FileIO.read();
+        //String input = FileIO.read();
+        String input = "Bob is a dog. Bob put the thing on the table. On June 31, Bob went skating. Bills on ports and immigration were submitted by Senator Brownback, Republican of Kansas.";
 
-        /*
-         * First, we initalize the parser and annotate the document.
-         */
-        // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and coreference resolution
-        Properties props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        CoreNLPParser parser = new CoreNLPParser();
 
-        // create an empty Annotation just with the given text
-        Annotation document = new Annotation(input);
+        QuestionCreatorCollection questionCreator = new QuestionCreatorCollection(new OnPrepQuestionCreator());
 
-        // run all Annotators on this text
-        pipeline.annotate(document);
+        JsonOutput output = new JsonOutput(new Output() {
+            public void output(String out) {
+                System.out.println(out);
+                //FileIO.write(out);
+            }
+        });
 
-        /*
-         * Next, we run through the question creators and asssemble the list
-         * of questions.
-         */
-
-        List<String> questions = new ArrayList<String>();
-
-        //questions.add(NamedEntityQuestionCreator.create(document));
-
-        System.out.println("Here are your questions: ");
-        String[] questionsArray = new String[questions.size()];
-        int i = 0;
-        for (String question : questions) {
-            System.out.println(question);
-            questionsArray[i] = question;
-            i++;
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNextLine()) {
+            String line = sc.nextLine();
+            System.out.println("In: " + line);
+            parser.process(line);
+            List<Question> questions = questionCreator.createQuestion(parser.getSentences(), parser.getCoreferences());
+            output.sendOutput(questions);
         }
-
-        FileIO.write(questionsArray);
     }
 }
