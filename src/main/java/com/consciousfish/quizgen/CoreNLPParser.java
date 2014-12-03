@@ -17,17 +17,19 @@ public class CoreNLPParser {
     private Map<Integer, CorefChain> coreferences;
     private String text;
 
+    StanfordCoreNLP pipeline;
+
     public CoreNLPParser() {
         sentences = new ArrayList<CoreMap>();
         coreferences = new HashMap<Integer, CorefChain>();
         text = "";
+
+        Properties props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
+        pipeline = new StanfordCoreNLP(props);
     }
 
     public void process(String text) {
-        Properties props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-
         // create an empty Annotation just with the given text
         Annotation document = new Annotation(text);
 

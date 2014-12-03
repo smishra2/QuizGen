@@ -21,7 +21,6 @@ public class QuestionCreatorCollection implements QuestionCreator {
         listeners = new ArrayList<QuestionCreator>(Arrays.asList(creatorListeners));
     }
 
-    @Override
     public List<Question> createQuestion(List<CoreMap> sentence, Map<Integer, CorefChain> coreferences) {
         ArrayList<Question> questions = new ArrayList<Question>();
         for(QuestionCreator creator : listeners) {
