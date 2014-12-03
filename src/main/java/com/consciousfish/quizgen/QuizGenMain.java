@@ -5,6 +5,7 @@ import com.consciousfish.quizgen.interfaces.Question;
 import com.consciousfish.quizgen.questioncreators.QuestionCreatorCollection;
 import com.consciousfish.quizgen.questioncreators.creatorcomponents.ApposModifQuestionCreator;
 import com.consciousfish.quizgen.questioncreators.creatorcomponents.BeingQuestionCreator;
+import com.consciousfish.quizgen.questioncreators.creatorcomponents.ModalQuestionCreator;
 import com.consciousfish.quizgen.questioncreators.creatorcomponents.OnPrepQuestionCreator;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
