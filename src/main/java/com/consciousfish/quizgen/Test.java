@@ -65,11 +65,12 @@ public class Test {
                 System.out.println("NER: " + ne);
             }
 
-        // this is the parse tree of the current sentence
-        Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+            // this is the parse tree of the current sentence
+            Tree tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
 
-        // this is the Stanford dependency graph of the current sentence
-        SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
+            // this is the Stanford dependency graph of the current sentence
+            SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
+            dependencies.prettyPrint();
         }
 
         // This is the coreference link graph

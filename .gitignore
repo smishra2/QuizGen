@@ -22,3 +22,6 @@ build
 *.iml
 .idea
 
+#Python related
+__pycache__/
+
