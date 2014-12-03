@@ -11,7 +11,7 @@ repositories {
 dependencies {
     compile "edu.stanford.nlp:stanford-corenlp:3.4.1"
     compile group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.4.1', classifier: 'models'
-    
+    compile 'com.google.code.gson:gson:2.3.1'
 }
 
 jar {
