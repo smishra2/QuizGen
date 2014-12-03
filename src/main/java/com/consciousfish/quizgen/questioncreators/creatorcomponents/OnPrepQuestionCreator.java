@@ -34,7 +34,7 @@ public class OnPrepQuestionCreator implements QuestionCreator {
 
             for (SemanticGraphEdge startEdge : dependencies.findAllRelns(EnglishGrammaticalRelations.PREPOSITIONAL_MODIFIER)) {
                 if (test) System.out.println("startEdge found: " + startEdge.toString());
-                if (startEdge.getTarget().word().equalsIgnoreCase("on")) {
+                if (startEdge.getTarget().word().equalsIgnoreCase("on") || true) {
                     // Create tree for sentence
                     TreeMap<Integer, IndexedWord> extract = new TreeMap<Integer, IndexedWord>();
                     IndexedWord extractRoot = startEdge.getSource();
