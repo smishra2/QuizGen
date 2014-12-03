@@ -3,6 +3,7 @@ package com.consciousfish.quizgen;
 import com.consciousfish.quizgen.interfaces.Output;
 import com.consciousfish.quizgen.interfaces.Question;
 import com.consciousfish.quizgen.questioncreators.QuestionCreatorCollection;
+import com.consciousfish.quizgen.questioncreators.creatorcomponents.ApposModifQuestionCreator;
 import com.consciousfish.quizgen.questioncreators.creatorcomponents.BeingQuestionCreator;
 import com.consciousfish.quizgen.questioncreators.creatorcomponents.OnPrepQuestionCreator;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -33,7 +34,7 @@ public class QuizGenMain {
 
         CoreNLPParser parser = new CoreNLPParser();
 
-        QuestionCreatorCollection questionCreator = new QuestionCreatorCollection(new OnPrepQuestionCreator());
+        QuestionCreatorCollection questionCreator = new QuestionCreatorCollection(new ApposModifQuestionCreator());
 
         JsonOutput output = new JsonOutput(new Output() {
             public void output(String out) {
