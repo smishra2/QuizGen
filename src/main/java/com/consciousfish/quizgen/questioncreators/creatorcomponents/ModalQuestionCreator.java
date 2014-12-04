@@ -103,7 +103,7 @@ public class ModalQuestionCreator implements QuestionCreator {
                     });
                 }
             }
-            catch (Exception e) { FileIO.writeToLog(e.getMessage()); }
+            catch (Exception e) { FileIO.writeToLog(e); }
         }
         return questions;
     }
