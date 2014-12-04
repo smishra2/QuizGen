@@ -1,5 +1,6 @@
 package com.consciousfish.quizgen.questioncreators.creatorcomponents;
 
+import com.consciousfish.quizgen.FileIO;
 import com.consciousfish.quizgen.interfaces.Question;
 import com.consciousfish.quizgen.interfaces.QuestionCreator;
 import edu.stanford.nlp.dcoref.CorefChain;
@@ -26,10 +27,10 @@ public class ModalQuestionCreator implements QuestionCreator {
     private static final boolean test = false;
 
     public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
-        try {
-            if (test) System.out.println("createQuestion called");
-            List<Question> questions = new ArrayList<Question>();
-            for (CoreMap sentence : sentences) {
+        if (test) System.out.println("createQuestion called");
+        List<Question> questions = new ArrayList<Question>();
+        for (CoreMap sentence : sentences) {
+            try {
                 if (test) System.out.println("Parsing sentence: " + sentence.toString());
                 Tree parseTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
                 SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
@@ -102,10 +103,8 @@ public class ModalQuestionCreator implements QuestionCreator {
                     });
                 }
             }
-            return questions;
+            catch (Exception e) { FileIO.writeToLog(e.toString()); }
         }
-        catch (Exception e) {
-            return new ArrayList<Question>();
-        }
+        return questions;
     }
 }
