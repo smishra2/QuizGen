@@ -1,5 +1,6 @@
 package com.consciousfish.quizgen.questioncreators.creatorcomponents;
 
+import com.consciousfish.quizgen.FileIO;
 import com.consciousfish.quizgen.interfaces.Question;
 import com.consciousfish.quizgen.interfaces.QuestionCreator;
 import edu.stanford.nlp.dcoref.CorefChain;
@@ -26,10 +27,10 @@ public class BeingQuestionCreator implements QuestionCreator {
     // Assuming all sentences with nn roots are being sentences with the root being the object of the being verb
     // ex. Bob is sick. Sick = nn root. Bob = nsubj related nnp/nn child, is = cop related vbz child
     public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
-        try {
-            if (test) System.out.println("createQuestion called");
-            List<Question> questions = new ArrayList<Question>();
-            for (CoreMap sentence : sentences) {
+        if (test) System.out.println("createQuestion called");
+        List<Question> questions = new ArrayList<Question>();
+        for (CoreMap sentence : sentences) {
+            try {
                 Tree parseTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
                 SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
 
@@ -111,10 +112,8 @@ public class BeingQuestionCreator implements QuestionCreator {
                     }
                 }
             }
-            return questions;
+            catch (Exception e) { FileIO.writeToLog(e.getMessage()); }
         }
-        catch (Exception e) {
-            return new ArrayList<Question>();
-        }
+        return questions;
     }
 }
