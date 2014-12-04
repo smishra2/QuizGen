@@ -7,8 +7,9 @@ import java.io.*;
  */
 public class FileIO {
 
-    private static final File input = new File("res/Input.txt");
-    private static final File output = new File("res/Output.txt");
+    private static final File input = new File("res/Input");
+    private static final File output = new File("res/Output");
+    private static final File log = new File("res/log");
 
     public static String read() {
         try {
@@ -34,6 +35,22 @@ public class FileIO {
         try {
             FileOutputStream outFileStream
                     = new FileOutputStream(output);
+            PrintWriter outStream = new PrintWriter(outFileStream);
+            for (String s : outputStr) {
+                outStream.println(s);
+            }
+            outStream.close();
+            outFileStream.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeToLog(String... outputStr) {
+        try {
+            FileOutputStream outFileStream
+                    = new FileOutputStream(log);
             PrintWriter outStream = new PrintWriter(outFileStream);
             for (String s : outputStr) {
                 outStream.println(s);
