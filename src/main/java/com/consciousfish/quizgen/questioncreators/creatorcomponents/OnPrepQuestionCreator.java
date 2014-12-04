@@ -93,7 +93,7 @@ public class OnPrepQuestionCreator implements QuestionCreator {
                     }
                 }
             }
-            catch (Exception e) { FileIO.writeToLog(e.getMessage()); }
+            catch (Exception e) { FileIO.writeToLog(e); }
         }
         return questions;
     }
