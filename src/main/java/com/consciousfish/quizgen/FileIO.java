@@ -62,4 +62,18 @@ public class FileIO {
             e.printStackTrace();
         }
     }
+
+    public static void writeToLog(Exception e) {
+        try {
+            FileOutputStream outFileStream
+                    = new FileOutputStream(log);
+            PrintWriter outStream = new PrintWriter(outFileStream);
+            e.printStackTrace(outStream);
+            outStream.close();
+            outFileStream.close();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }
