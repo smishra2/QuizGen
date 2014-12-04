@@ -112,7 +112,7 @@ public class BeingQuestionCreator implements QuestionCreator {
                     }
                 }
             }
-            catch (Exception e) { FileIO.writeToLog(e.toString()); }
+            catch (Exception e) { FileIO.writeToLog(e.getMessage()); }
         }
         return questions;
     }
