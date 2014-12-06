@@ -49,7 +49,7 @@ public class NamedEntityQuestionCreator implements QuestionCreator {
                         case "LOCATION":
                             question = "Where is";
                             break;
-                        default:
+                        default: // We're not dealing w/ other NER types
                             continue;
                     }
 
