@@ -39,7 +39,7 @@ public class ApposModifQuestionCreator implements QuestionCreator {
                     String question = "";
 
                     // First check if source is NE, if so, use Who
-                    if (startEdge.getSource().ner().equalsIgnoreCase("PERSON"))
+                    if (startEdge.getTarget().ner().equalsIgnoreCase("PERSON"))
                         question = "Who is";
                     else
                         question = "What is";
