@@ -104,13 +104,13 @@ public class NamedEntityQuestionCreator implements QuestionCreator {
             IndexedWord word = queue.remove();
             set.add(word);
             // Look through all edges for compound nouns
-            for (SemanticGraphEdge edge : dependencies.incomingEdgeIterable(root)) {
+            for (SemanticGraphEdge edge : dependencies.incomingEdgeIterable(word)) {
                 // Only add other words which add to compound noun
                 if ("nn".equalsIgnoreCase(edge.getRelation().getShortName()) &&
                         !set.contains(edge.getSource()))
                     queue.add(edge.getSource());
             }
-            for (SemanticGraphEdge edge : dependencies.outgoingEdgeIterable(root)) {
+            for (SemanticGraphEdge edge : dependencies.outgoingEdgeIterable(word)) {
                 // Only add other words which add to compound noun
                 if ("nn".equalsIgnoreCase(edge.getRelation().getShortName()) &&
                         !set.contains(edge.getTarget()))
