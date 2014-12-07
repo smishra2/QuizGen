@@ -21,7 +21,7 @@ import java.util.*;
  * Created by Jonathan on 2014/10/30.
  */
 public class BeingQuestionCreator implements QuestionCreator {
-    private static final boolean test = false;
+    private static final boolean test = true;
 
     // Naive implementation. Only sentence rearrangement, yes is always the answer.
     // Assuming all sentences with nn roots are being sentences with the root being the object of the being verb
@@ -32,11 +32,17 @@ public class BeingQuestionCreator implements QuestionCreator {
         for (CoreMap sentence : sentences) {
             try {
                 Tree parseTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-                SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation.class);
+                SemanticGraph dependencies = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
 
                 for (IndexedWord root : dependencies.getRoots()) {
                     if (test) System.out.println("root found: " + root.toString());
-                    if (root.tag().equalsIgnoreCase("nn") || root.tag().equalsIgnoreCase("jj")) {
+                    if (root.tag().equalsIgnoreCase("nn")
+                            || root.tag().equalsIgnoreCase("nns")
+                            || root.tag().equalsIgnoreCase("nnp")
+                            || root.tag().equalsIgnoreCase("nnps")
+                            || root.tag().equalsIgnoreCase("prp")
+                            || root.tag().equalsIgnoreCase("prp$")
+                            || root.tag().equalsIgnoreCase("jj")) {
                         List<Pair<GrammaticalRelation, IndexedWord>> children = dependencies.childPairs(root);
 
                         // Create trees for sentence fragments
@@ -50,34 +56,64 @@ public class BeingQuestionCreator implements QuestionCreator {
                         IndexedWord predicateObjectRoot = root;
 
                         // Create predicateObject and roots
-                        Iterator<SemanticGraphEdge> relationIter = dependencies.outgoingEdgeIterator(root);
-                        while (relationIter.hasNext()) {
-                            SemanticGraphEdge edge = relationIter.next();
-                            if (test) System.out.println("Edge found: " + edge.toString());
+                        Stack<SemanticGraphEdge> edgeStack = new Stack<SemanticGraphEdge>();
+                        for (SemanticGraphEdge edge : dependencies.outgoingEdgeList(root)) {
+                            edgeStack.push(edge);
+                        }
+                        while (!edgeStack.empty()) {
+                            SemanticGraphEdge edge = edgeStack.pop();
 
                             String relation = edge.getRelation().getShortName();
+                            if (test) System.out.println("Pop from pobj stack: " + edge.getRelation().toString() + " " + edge.getTarget().toString());
                             if (relation.equalsIgnoreCase("nsubj")) {
                                 subjectRoot = edge.getTarget();
                             } else if (relation.equalsIgnoreCase("cop")) {
                                 predicateVerbRoot = edge.getTarget();
-                            } else if (relation.equalsIgnoreCase("nn") || relation.equalsIgnoreCase("amod") ||
+                            } else if (edge.getTarget().tag().equalsIgnoreCase("nn") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("nns") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("nnp") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("nnps") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("prp") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("prp$") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("pos") ||
+                                    relation.equalsIgnoreCase("amod") ||
                                     relation.equalsIgnoreCase("det")) {
                                 if (test)
                                     System.out.println("Inserting into predicateObject graph: " + edge.getTarget().toString());
                                 predicateObject.put(edge.getTarget().index(), edge.getTarget());
+                                for(SemanticGraphEdge child : dependencies.outgoingEdgeList(edge.getTarget())) {
+                                    System.out.println("Putting into pobj stack " + child.getRelation().toString() + " " + child.getTarget().toString());
+                                    edgeStack.push(child);
+                                }
                             }
                         }
 
                         // Create subject
-                        relationIter = dependencies.outgoingEdgeIterator(subjectRoot);
-                        while (relationIter.hasNext()) {
-                            SemanticGraphEdge edge = relationIter.next();
+                        while (!edgeStack.empty()) {
+                            edgeStack.pop();
+                        }
+                        for (SemanticGraphEdge edge : dependencies.outgoingEdgeList(subjectRoot)) {
+                            edgeStack.push(edge);
+                        }
+                        while (!edgeStack.empty()) {
+                            SemanticGraphEdge edge = edgeStack.pop();
 
                             String relation = edge.getRelation().getShortName();
-                            if (relation.equalsIgnoreCase("nn")) {
+                            if (test) System.out.println("Pop from subject stack: " + edge.getRelation().toString() + " " + edge.getTarget().toString());
+                            if (edge.getTarget().tag().equalsIgnoreCase("nn") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("nns") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("nnp") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("nnps") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("prp") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("prp$") ||
+                                    edge.getTarget().tag().equalsIgnoreCase("pos")) {
                                 if (test)
-                                    System.out.println("Inserting into subject graph: " + edge.getTarget().toString());
+                                    System.out.println("Inserting into subj graph: " + edge.getTarget().toString());
                                 subject.put(edge.getTarget().index(), edge.getTarget());
+                                for(SemanticGraphEdge child : dependencies.outgoingEdgeList(edge.getTarget())) {
+                                    System.out.println("Putting into subj stack " + child.getRelation().toString() + " " + child.getTarget().toString());
+                                    edgeStack.push(child);
+                                }
                             }
                         }
 
@@ -87,12 +123,23 @@ public class BeingQuestionCreator implements QuestionCreator {
                         predicateObject.put(root.index(), root);
 
                         // Create question
-                        String question = "" + predicateVerbRoot.value() + " ";
+                        String question = predicateVerbRoot.value().substring(0,1).toUpperCase() + predicateVerbRoot.value().substring(1) + " ";
+                        if (dependencies.getNodeByIndex(1).ner().equalsIgnoreCase("o")) {
+                            if (test) System.out.println("Inserting second word into question: " + dependencies.getNodeByIndex(1).value());
+                            question += dependencies.getNodeByIndex(1).value().toLowerCase() + " ";
+                            subject.remove(1);
+                        }
                         for (IndexedWord word : subject.values()) {
-                            question += word.value() + " ";
+                            List<IndexedWord> newSubj = PronounReplacer.replacePronoun(word, sentences, coreferences);
+                            for (IndexedWord newWord : newSubj) {
+                                question += newWord.value() + " ";
+                            }
                         }
                         for (IndexedWord word : predicateObject.values()) {
-                            question += word.value() + " ";
+                            List<IndexedWord> newSubj = PronounReplacer.replacePronoun(word, sentences, coreferences);
+                            for (IndexedWord newWord : newSubj) {
+                                question += newWord.value() + " ";
+                            }
                         }
                         question = question.trim() + "?";
                         final String questionClone = question;
