@@ -20,19 +20,21 @@ public class JsonOutput {
     }
 
     public void sendOutput(List<Question> questions) {
-        /*JsonArray json = new JsonArray();
+        JsonArray json = new JsonArray();
         for(Question q : questions) {
             JsonObject obj = new JsonObject();
             obj.addProperty("question", q.getQuestion());
+            obj.addProperty("sentence", q.getSentence());
             json.add(obj);
-        }*/
-        JsonObject json = new JsonObject();
+        }
+
+        /*JsonObject json = new JsonObject();
         JsonArray questionsArray = new JsonArray();
         for (Question q : questions) {
             JsonPrimitive prim = new JsonPrimitive(q.getQuestion());
             questionsArray.add(prim);
         }
-        json.add("question", questionsArray);
+        json.add("question", questionsArray);*/
         output.output(json.toString());
     }
 }

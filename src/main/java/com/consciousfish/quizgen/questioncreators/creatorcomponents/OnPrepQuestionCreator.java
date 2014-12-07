@@ -42,6 +42,31 @@ public class OnPrepQuestionCreator implements QuestionCreator {
                         IndexedWord extractRoot = startEdge.getSource();
                         IndexedWord onPrep = startEdge.getTarget();
 
+                        /*Stack<SemanticGraphEdge> edgeStack = new Stack<SemanticGraphEdge>();
+                        for (SemanticGraphEdge edge : dependencies.getOutEdgesSorted(dependencies.getFirstRoot())) {
+                            if (!edge.getRelation().isAncestor(EnglishGrammaticalRelations.PREPOSITIONAL_MODIFIER)
+                                    || edge.getTarget().equals(onPrep)) {
+                                edgeStack.push(edge);
+                            }
+                        }
+                        if (test) System.out.println("Stack created with root");
+                        extract.put(extractRoot.index(), extractRoot);
+
+                        while (!edgeStack.empty()) {
+                            SemanticGraphEdge edge = edgeStack.pop();
+                            if (test) System.out.println("Testing edge: " + edge.toString());
+                            if (!edge.getRelation().isAncestor(EnglishGrammaticalRelations.PREPOSITIONAL_MODIFIER)) {
+                                if (!edge.getRelation().isAncestor(EnglishGrammaticalRelations.PREPOSITIONAL_OBJECT)) {
+                                    if (test)
+                                        System.out.println("Inserting into extract: " + edge.getTarget().toString());
+                                    extract.put(edge.getTarget().index(), edge.getTarget());
+                                }
+                                for (SemanticGraphEdge child : dependencies.getOutEdgesSorted(edge.getTarget())) {
+                                    edgeStack.push(child);
+                                }
+                            }
+                        }*/
+
                         for (IndexedWord word : dependencies.vertexSet()) {
                             if (!dependencies.descendants(onPrep).contains(word)) {
                                 extract.put(word.index(), word);
@@ -75,11 +100,13 @@ public class OnPrepQuestionCreator implements QuestionCreator {
                         }
                         question = question.trim() + "?";
                         final String questionClone = question;
+                        final String sentenceClone = sentence.toString();
 
                         if (!prepType.equalsIgnoreCase("date")) {
                             questions.add(new Question() {
                                 final String q = questionClone;
                                 final String a = "yes";
+                                final String s = sentenceClone;
 
                                 public String getQuestion() {
                                     return q;
@@ -88,6 +115,8 @@ public class OnPrepQuestionCreator implements QuestionCreator {
                                 public String getAnswer() {
                                     return a;
                                 }
+
+                                public String getSentence() { return s; }
                             });
                         }
                     }

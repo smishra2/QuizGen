@@ -7,6 +7,7 @@ package com.consciousfish.quizgen.interfaces;
 public abstract class Question {
     public abstract String getQuestion();
     public abstract String getAnswer();
+    public abstract String getSentence();
 
     public boolean equals(Object object) {
         if (object instanceof Question)

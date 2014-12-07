@@ -96,10 +96,12 @@ public class BeingQuestionCreator implements QuestionCreator {
                         }
                         question = question.trim() + "?";
                         final String questionClone = question;
+                        final String sentenceClone = sentence.toString();
 
                         questions.add(new Question() {
                             final String q = questionClone;
                             final String a = "yes";
+                            final String s = sentenceClone;
 
                             public String getQuestion() {
                                 return q;
@@ -108,6 +110,8 @@ public class BeingQuestionCreator implements QuestionCreator {
                             public String getAnswer() {
                                 return a;
                             }
+
+                            public String getSentence() { return s; }
                         });
                     }
                 }

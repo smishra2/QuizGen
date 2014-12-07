@@ -20,7 +20,7 @@ import java.util.*;
  * Created by Sachit on 9/28/2014.
  */
 public class NamedEntityQuestionCreator implements QuestionCreator {
-    private static final boolean test = true;
+    private static final boolean test = false;
 
     public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if(test) System.out.println("createQuestion called");
@@ -71,10 +71,12 @@ public class NamedEntityQuestionCreator implements QuestionCreator {
 
                     if (question != null) {
                         final String questionclone = question;
+                        final String sentenceClone = sentence.toString();
 
                         questions.add(new Question() {
                             final String q = questionclone;
                             final String a = "yes";
+                            final String s = sentenceClone;
 
                             public String getQuestion() {
                                 return q;
@@ -83,6 +85,8 @@ public class NamedEntityQuestionCreator implements QuestionCreator {
                             public String getAnswer() {
                                 return a;
                             }
+
+                            public String getSentence() { return s; }
                         });
                     }
                 }

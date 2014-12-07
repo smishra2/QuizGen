@@ -17,7 +17,7 @@ import java.util.*;
  * Created by Jonathan on 2014/12/03.
  */
 public abstract class AdvModifierQuestionCreator implements QuestionCreator {
-    private static final boolean test = true;
+    private static final boolean test = false;
 
     protected abstract String marker();
     protected abstract String replacement();
@@ -67,10 +67,12 @@ public abstract class AdvModifierQuestionCreator implements QuestionCreator {
                         }
                         question = question.trim() + "?";
                         final String questionClone = question;
+                        final String sentenceClone = sentence.toString();
 
                         questions.add(new Question() {
                             final String q = questionClone;
                             final String a = "yes";
+                            final String s = sentenceClone;
 
                             public String getQuestion() {
                                 return q;
@@ -79,6 +81,8 @@ public abstract class AdvModifierQuestionCreator implements QuestionCreator {
                             public String getAnswer() {
                                 return a;
                             }
+
+                            public String getSentence() { return s; }
                         });
                     }
                 }
