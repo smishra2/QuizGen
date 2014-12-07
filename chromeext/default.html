@@ -6,11 +6,18 @@
     <script src="js/angular.min.js"></script>
     <script src="js/quizgen.js"></script>
     <div>
-      <p>Your quiz:</p>
-      <div ng-repeat="question in results.questions">
-        <p> {{ question.question }} <button type="button" class="question-button" ng-click="row.selected =! row.selected">{{!row.selected ? 'Show sentence' : 'Hide sentence'}}</button></p>
-        <div ng-class="{'question-sentence visible':row.selected, 'question-sentence hidden':!row.selected}"> {{ question.sentence }} </div>
-      </div>
+      <h2 style="text-align:center">Your quiz:</h2>
+      <table style="width:85%">
+        <tr ng-repeat="question in results.questions">
+          <td style="width:80%">
+            <p> {{ question.question }} </p>
+            <div ng-class="{'question-sentence visible':row.selected, 'question-sentence hidden':!row.selected}"> {{ question.sentence }} </div>
+          </td>
+          <td style="width:20%" class="answer_column">
+            <button type="button" class="question-button" ng-click="row.selected =! row.selected">{{!row.selected ? 'Show sentence' : 'Hide sentence'}}</button>
+          </td>
+        </tr>
+      </table>
     </div>
 </body>
 </html>
