@@ -7,6 +7,7 @@
     <script src="js/quizgen.js"></script>
     <div>
       <h2 style="text-align:center; border-bottom: 1px solid black;">Your quiz:</h2>
+      <h1 style="text-align:center">{{ loading }}</h1>
       <table style="width:85%">
         <tr ng-repeat="question in results.questions">
           <td style="width:80%">
