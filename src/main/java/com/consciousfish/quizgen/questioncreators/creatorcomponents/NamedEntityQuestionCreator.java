@@ -42,16 +42,20 @@ public class NamedEntityQuestionCreator implements QuestionCreator {
                     if (wordUsed.containsKey(token.index())) // Word's been used
                         continue;
 
-                    switch (ne) {
-                        case "PERSON":
-                            question = "Who is";
-                            break;
-                        case "LOCATION":
-                            question = "Where is";
-                            break;
-                        default: // We're not dealing w/ other NER types
-                            continue;
-                    }
+                    // Different question beginning based on NER type
+//                    switch (ne) {
+//                        case "PERSON":
+//                            question = "Who is";
+//                            break;
+//                        case "LOCATION":
+//                            question = "Where is";
+//                            break;
+//                        default: // We're not dealing w/ other NER types
+//                            continue;
+//                    }
+
+                    // We're not worried about NER types for now
+                    question = "What is the importance of";
 
                     // Get the indexed word corresponding to this token
                     IndexedWord entity = dependencies.getNodeByIndex(token.index());
@@ -67,7 +71,7 @@ public class NamedEntityQuestionCreator implements QuestionCreator {
                         question += " " + mappedWords.get(index);
                         wordUsed.put(index, true);
                     }
-                    question += "?";
+                    question += " in this article?";
 
                     if (question != null) {
                         final String questionclone = question;
