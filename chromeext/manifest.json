@@ -17,5 +17,12 @@
     "background": {
         "scripts": ["js/background.js"],
         "persistent": false
-    }
+    },
+    
+    "content_scripts": [
+        {
+            "matches": [ "http://*/*" ],
+            "js": ["js/angular.min.js", "js/quizgen.js"]
+        }
+    ]
 }
