@@ -39,6 +39,10 @@ def jstest():
             "        {\n"
             "            \"question\": \"Who are you?\",\n"
             "            \"sentence\": \"I am me.\"\n"
+            "        },\n"
+            "        {\n"
+            "            \"question\": \"Are you a man?\",\n"
+            "            \"sentence\": \"I am a man.\"\n"
             "        }\n"
             "    ]\n"
             "}")
