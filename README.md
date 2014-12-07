@@ -52,4 +52,9 @@ To run, navigate to the QuizGen main directory, and use:
 As this Chrome extension is unpackaged, you will need to enable Developer mode in your Chrome browser. To do this:
 
 Chrome > Settings > Extensions > Check Developer mode box
+
 Click `Load unpacked extension` > Browse to chromeext dir > Click OK
+
+## Usage
+
+With the server running (`python QuizGenServer.py`), simply click the Chrome extension browser action button to the right of the address bar and prepare to be amazed...
