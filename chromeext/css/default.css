@@ -22,3 +22,11 @@ th, td {
 .answer_column {
     text-align: center;
 }
+
+h2 {
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center; 
+    border-bottom: 1px solid black;
+    width: 85%;
+}
