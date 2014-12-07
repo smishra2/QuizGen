@@ -1,0 +1,11 @@
+.hidden {
+    visibility: hidden;
+}
+.visible {
+    visibility: visible;
+}
+
+.question-sentence {
+    color: gray;
+    font-style: italic;
+}

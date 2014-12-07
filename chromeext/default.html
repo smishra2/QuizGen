@@ -1,13 +1,6 @@
 <html ng-app="quizgen" data-ng-app data-ng-csp>
 <head>
-    <style>
-        .hidden {
-            visibility: hidden;
-        }
-        .visible {
-            visibility: visible;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="default.css" \>
 </head>
 <body ng-controller="QuizController">
     <script src="js/angular.min.js"></script>
@@ -15,8 +8,8 @@
     <div>
       <p>Your quiz:</p>
       <div ng-repeat="question in results.questions">
-        <p> {{ question.question }} <button type="button" ng-click="row.selected=!row.selected">Show sentence</button></p>
-        <div ng-class="{'visible':row.selected, 'hidden':!row.selected}"> {{ question.sentence }} </div>
+        <p> {{ question.question }} <button type="button" class="question-button" ng-click="row.selected =! row.selected">{{!row.selected ? 'Show sentence' : 'Hide sentence'}}</button></p>
+        <div ng-class="{'question-sentence visible':row.selected, 'question-sentence hidden':!row.selected}"> {{ question.sentence }} </div>
       </div>
     </div>
 </body>
