@@ -24,7 +24,7 @@ import java.util.*;
  * Created by Jonathan on 2014/10/30.
  */
 public class ModalQuestionCreator implements QuestionCreator {
-    private static final boolean test = false;
+    private static final boolean test = true;
 
     public Set<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if (test) System.out.println("createQuestion called");
@@ -47,6 +47,7 @@ public class ModalQuestionCreator implements QuestionCreator {
                     List<IndexedWord> pronouns = new ArrayList<IndexedWord>();
 
                     for (IndexedWord word : dependencies.vertexSet()) {
+                        if (test) System.out.println("Checking word: " + word.toString());
                         if (!word.equals(aux)) {
                             extract.put(word.index(), word);
                         }
@@ -65,25 +66,19 @@ public class ModalQuestionCreator implements QuestionCreator {
                     for (Integer index : extract.keySet()) {
                         if (extract.firstKey() == index) {
                             String ner = extract.get(index).backingLabel().get(CoreAnnotations.NamedEntityTagAnnotation.class);
-                            if (ner.equalsIgnoreCase("o")) {
-                                if (nouns.containsKey(extract.get(index))) {
-                                    for (IndexedWord word : nouns.get(extract.get(index))) {
-                                        if (word.equals(extract.get(index))) {
-                                            question += word.value().toLowerCase() + " ";
-                                            break;
-                                        } else {
-                                            question += word.value() + " ";
-                                        }
-                                    }
-                                } else {
-                                    if (nouns.containsKey(extract.get(index))) {
-                                        for (IndexedWord word : nouns.get(extract.get(index))) {
-                                            question += word.value() + " ";
-                                        }
+                            if (test) System.out.println("Checking word: " + extract.get(index).toString() + " ner: " + ner);
+                            if (ner.equalsIgnoreCase("o") && nouns.containsKey(extract.get(index))) {
+                                for (IndexedWord word : nouns.get(extract.get(index))) {
+                                    if (word.equals(extract.get(index))) {
+                                        question += word.value().toLowerCase() + " ";
+                                        break;
+                                    } else {
+                                        question += word.value() + " ";
                                     }
                                 }
-                            } else {
-                                question += extract.get(index).value() + " ";
+                            }
+                            else {
+                                question += extract.get(index).value().toLowerCase() + " ";
                             }
                         } else {
                             question += extract.get(index).value() + " ";
