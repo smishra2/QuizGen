@@ -55,7 +55,10 @@ public class NamedEntityQuestionCreator implements QuestionCreator {
 //                    }
 
                     // We're not worried about NER types for now
-                    question = "What is the importance of";
+                    if (ne.equals("PERSON") || ne.equals("LOCATION"))
+                        question = "What is the importance of";
+                    else
+                        continue;
 
                     // Get the indexed word corresponding to this token
                     IndexedWord entity = dependencies.getNodeByIndex(token.index());
