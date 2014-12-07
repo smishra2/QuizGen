@@ -1,4 +1,5 @@
-#QuizGen
+QuizGen
+======
 
 Automatic quiz generation system
 
@@ -9,6 +10,31 @@ This project, built by Sachit Mishra (@smishra2) and Jonathan Yu (@jonathan-howe
 * Stanford CoreNLP
 * Alchemy Language REST API
 * Flask Python Server
+* AngularJS (for data binding and DOM manipulation in chrome extension)
+
+## Server endpoints
+
+* 'GET /jstest?=websiteURL'
+  Returns a sample JSON response, ignores the websiteURL.
+* 'GET /quizme?=websiteURL'
+  This is the main API call. Returns JSON encoded questions array (see below).
+
+  Sample Response:
+  
+  {
+    "questions": [
+      {
+        "question": "What is the question?",
+        "sentence": "This is the sentence from which this question originated."
+      },
+      {
+        "question": "Was Amy a good student?",
+        "sentence": "Amy was a good student."
+      }
+    ]
+  }
+  
+## Building
 
 To build, please have Java (1.6 and up) and Gradle 2.0 installed. Navigate to the QuizGen directory and type `gradle build`.
 
