@@ -1,6 +1,6 @@
 import subprocess
 from TextExtractor import TextExtractor
-from flask import Flask, request
+from flask import Flask, request, abort
 
 app = Flask(__name__)
 
@@ -10,6 +10,9 @@ def hello():
 
 @app.route("/quizme", methods=['GET'])
 def extract():
+    if request.args.get('websiteURL') is None:
+        abort(500)
+
     #Extract text
     print("Received quizme GET request, website URL = " +
           str(request.args.get('websiteURL', '')))
