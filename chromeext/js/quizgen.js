@@ -25,7 +25,7 @@
         }).
         error(function(data, status, headers, config) {
           $scope.questions = [{'Error:': 'There has been an error.'}];
-          $scope.loading = "";
+          $scope.loading = "Sorry, there was an error loading your quiz.";
         });
     });
   });
