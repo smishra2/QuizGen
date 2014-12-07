@@ -1,0 +1,24 @@
+.hidden {
+    visibility: hidden;
+}
+.visible {
+    visibility: visible;
+}
+
+.question-sentence {
+    color: gray;
+    font-style: italic;
+}
+
+table {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+th, td {
+    border-bottom:1px solid black;
+}
+
+.answer_column {
+    text-align: center;
+}
