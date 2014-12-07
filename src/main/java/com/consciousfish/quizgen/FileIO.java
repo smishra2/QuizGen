@@ -18,7 +18,7 @@ public class FileIO {
             StringBuilder stringBuilder = new StringBuilder();
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
+                stringBuilder.append(line + "\n");
             }
             bufferedReader.close();
             fileReader.close();

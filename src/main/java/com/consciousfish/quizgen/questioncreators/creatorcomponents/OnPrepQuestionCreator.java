@@ -25,9 +25,9 @@ import java.util.*;
 public class OnPrepQuestionCreator implements QuestionCreator {
     private static final boolean test = false;
 
-    public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
+    public Set<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if (test) System.out.println("createQuestion called");
-        List<Question> questions = new ArrayList<Question>();
+        Set<Question> questions = new HashSet<Question>();
         for (CoreMap sentence : sentences) {
             try {
                 if (test) System.out.println("Parsing sentence: " + sentence.toString());
@@ -41,6 +41,31 @@ public class OnPrepQuestionCreator implements QuestionCreator {
                         TreeMap<Integer, IndexedWord> extract = new TreeMap<Integer, IndexedWord>();
                         IndexedWord extractRoot = startEdge.getSource();
                         IndexedWord onPrep = startEdge.getTarget();
+
+                        /*Stack<SemanticGraphEdge> edgeStack = new Stack<SemanticGraphEdge>();
+                        for (SemanticGraphEdge edge : dependencies.getOutEdgesSorted(dependencies.getFirstRoot())) {
+                            if (!edge.getRelation().isAncestor(EnglishGrammaticalRelations.PREPOSITIONAL_MODIFIER)
+                                    || edge.getTarget().equals(onPrep)) {
+                                edgeStack.push(edge);
+                            }
+                        }
+                        if (test) System.out.println("Stack created with root");
+                        extract.put(extractRoot.index(), extractRoot);
+
+                        while (!edgeStack.empty()) {
+                            SemanticGraphEdge edge = edgeStack.pop();
+                            if (test) System.out.println("Testing edge: " + edge.toString());
+                            if (!edge.getRelation().isAncestor(EnglishGrammaticalRelations.PREPOSITIONAL_MODIFIER)) {
+                                if (!edge.getRelation().isAncestor(EnglishGrammaticalRelations.PREPOSITIONAL_OBJECT)) {
+                                    if (test)
+                                        System.out.println("Inserting into extract: " + edge.getTarget().toString());
+                                    extract.put(edge.getTarget().index(), edge.getTarget());
+                                }
+                                for (SemanticGraphEdge child : dependencies.getOutEdgesSorted(edge.getTarget())) {
+                                    edgeStack.push(child);
+                                }
+                            }
+                        }*/
 
                         for (IndexedWord word : dependencies.vertexSet()) {
                             if (!dependencies.descendants(onPrep).contains(word)) {
@@ -75,11 +100,13 @@ public class OnPrepQuestionCreator implements QuestionCreator {
                         }
                         question = question.trim() + "?";
                         final String questionClone = question;
+                        final String sentenceClone = sentence.toString();
 
                         if (!prepType.equalsIgnoreCase("date")) {
                             questions.add(new Question() {
                                 final String q = questionClone;
                                 final String a = "yes";
+                                final String s = sentenceClone;
 
                                 public String getQuestion() {
                                     return q;
@@ -88,6 +115,8 @@ public class OnPrepQuestionCreator implements QuestionCreator {
                                 public String getAnswer() {
                                     return a;
                                 }
+
+                                public String getSentence() { return s; }
                             });
                         }
                     }

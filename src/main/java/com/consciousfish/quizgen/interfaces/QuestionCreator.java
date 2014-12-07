@@ -7,10 +7,11 @@ import edu.stanford.nlp.util.CoreMap;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Jonathan on 2014/10/30.
  */
 public interface QuestionCreator {
-    public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences);
+    public Set<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences);
 }

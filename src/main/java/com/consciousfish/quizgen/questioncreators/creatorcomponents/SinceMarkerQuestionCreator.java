@@ -11,6 +11,6 @@ public class SinceMarkerQuestionCreator extends AdvModifierQuestionCreator {
 
     @Override
     protected String replacement() {
-        return " because of what?";
+        return "because of what ";
     }
 }

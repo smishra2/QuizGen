@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by Jonathan on 2014/12/02.
  */
 public class PronounReplacer {
-    private final static boolean test = true;
+    private final static boolean test = false;
     public static List<IndexedWord> replacePronoun(IndexedWord pronoun, List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if (test) System.out.println("replacePronoun called");
         boolean found = false;

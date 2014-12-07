@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,20 +20,24 @@ public class JsonOutput {
         this.output = output;
     }
 
-    public void sendOutput(List<Question> questions) {
-        /*JsonArray json = new JsonArray();
+    public void sendOutput(Collection<Question> questions) {
+        JsonObject json = new JsonObject();
+        JsonArray array = new JsonArray();
         for(Question q : questions) {
             JsonObject obj = new JsonObject();
             obj.addProperty("question", q.getQuestion());
-            json.add(obj);
-        }*/
-        JsonObject json = new JsonObject();
+            obj.addProperty("sentence", q.getSentence());
+            array.add(obj);
+        }
+        json.add("questions", array);
+
+        /*JsonObject json = new JsonObject();
         JsonArray questionsArray = new JsonArray();
         for (Question q : questions) {
             JsonPrimitive prim = new JsonPrimitive(q.getQuestion());
             questionsArray.add(prim);
         }
-        json.add("question", questionsArray);
+        json.add("question", questionsArray);*/
         output.output(json.toString());
     }
 }
