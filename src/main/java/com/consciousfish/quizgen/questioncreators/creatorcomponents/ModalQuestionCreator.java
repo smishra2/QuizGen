@@ -24,7 +24,7 @@ import java.util.*;
  * Created by Jonathan on 2014/10/30.
  */
 public class ModalQuestionCreator implements QuestionCreator {
-    private static final boolean test = true;
+    private static final boolean test = false;
 
     public Set<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if (test) System.out.println("createQuestion called");
