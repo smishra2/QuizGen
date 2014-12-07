@@ -1,19 +1,13 @@
 <html ng-app="quizgen" data-ng-app data-ng-csp>
 <head>
-  <style>
-    body {
-      min-width: 357px;
-      overflow-x: hidden;
-    }
-</style>
 </head>
 <body ng-controller="QuizController">
     <script src="js/angular.min.js"></script>
     <script src="js/quizgen.js"></script>
     <div>
       <p>Your quiz:</p>
-      <div ng-repeat="question in questions.question">
-        <p> {{ question }} </p>
+      <div ng-repeat="question in results.questions">
+        <p> {{ question.question }} </p>
       </div>
     </div>
 </body>
