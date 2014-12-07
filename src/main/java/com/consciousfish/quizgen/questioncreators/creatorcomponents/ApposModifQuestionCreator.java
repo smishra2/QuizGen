@@ -22,9 +22,9 @@ import java.util.*;
 public class ApposModifQuestionCreator implements QuestionCreator {
     private static final boolean test = false;
 
-    public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
+    public Set<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if(test) System.out.println("createQuestion called");
-        List<Question> questions = new ArrayList<Question>();
+        Set<Question> questions = new HashSet<Question>();
         for(CoreMap sentence : sentences) {
             try {
                 if (test)

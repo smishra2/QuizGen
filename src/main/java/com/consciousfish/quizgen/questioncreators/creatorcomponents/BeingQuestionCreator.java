@@ -26,9 +26,9 @@ public class BeingQuestionCreator implements QuestionCreator {
     // Naive implementation. Only sentence rearrangement, yes is always the answer.
     // Assuming all sentences with nn roots are being sentences with the root being the object of the being verb
     // ex. Bob is sick. Sick = nn root. Bob = nsubj related nnp/nn child, is = cop related vbz child
-    public List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
+    public Set<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if (test) System.out.println("createQuestion called");
-        List<Question> questions = new ArrayList<Question>();
+        Set<Question> questions = new HashSet<Question>();
         for (CoreMap sentence : sentences) {
             try {
                 Tree parseTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);

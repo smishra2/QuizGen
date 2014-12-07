@@ -22,9 +22,9 @@ public abstract class AdvModifierQuestionCreator implements QuestionCreator {
     protected abstract String marker();
     protected abstract String replacement();
 
-    public final List<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
+    public final Set<Question> createQuestion(List<CoreMap> sentences, Map<Integer, CorefChain> coreferences) {
         if (test) System.out.println("createQuestion called");
-        List<Question> questions = new ArrayList<Question>();
+        Set<Question> questions = new HashSet<Question>();
         for (CoreMap sentence : sentences) {
             try {
                 SemanticGraph dependences = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
