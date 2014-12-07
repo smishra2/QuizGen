@@ -35,12 +35,13 @@ def jstest():
     print("Received JSTest")
     print("WebsiteURL is " + str(request.args.get('websiteURL', '')))
     return ("{\n" +
-           "    \"question\": [\n" +
-           "        \"What are you?\",\n" +
-           "        \"Who are you?\",\n" +
-           "        \"Why are you?\"\n" +
-           "    ]" +
-           "}")
+            "    \"questions\": [\n"
+            "        {\n"
+            "            \"question\": \"Who are you?\",\n"
+            "            \"sentence\": \"I am me.\"\n"
+            "        }\n"
+            "    ]\n"
+            "}")
 
 if __name__ == "__main__":
     app.run()
