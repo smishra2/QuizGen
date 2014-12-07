@@ -14,36 +14,42 @@ This project, built by Sachit Mishra (@smishra2) and Jonathan Yu (@jonathan-howe
 
 ## Server endpoints
 
-* 'GET /jstest?=websiteURL'
+* `GET /jstest?=websiteURL`
+
   Returns a sample JSON response, ignores the websiteURL.
-* 'GET /quizme?=websiteURL'
+
+* `GET /quizme?=websiteURL`
+
   This is the main API call. Returns JSON encoded questions array (see below).
 
   Sample Response:
   
-  {
-    "questions": [
-      {
-        "question": "What is the question?",
-        "sentence": "This is the sentence from which this question originated."
-      },
-      {
-        "question": "Was Amy a good student?",
-        "sentence": "Amy was a good student."
-      }
-    ]
-  }
+  ````json
+    {
+      "questions": [
+        {
+          "question": "What is the question?",
+          "sentence": "This is the sentence from which this question originated."
+        },
+        {
+          "question": "Was Amy a good student?",
+          "sentence": "Amy was a good student."
+        }
+      ]
+    }
+  ````
   
-## Building
+## Running web server
 
-To build, please have Java (1.6 and up) and Gradle 2.0 installed. Navigate to the QuizGen directory and type `gradle build`.
+To build, please have Java (1.6 and up), Gradle 2.0, and Flask installed. Navigate to the QuizGen directory and type `gradle build`.
 
-To run, use either:
+To run, navigate to the QuizGen main directory, and use:
 
-1) `gradle run`
+`python QuizGenServer.py`
 
-OR
+## Chrome extension installation
 
-2) `java -jar build/libs/QuizGen-1.0.jar`
+As this Chrome extension is unpackaged, you will need to enable Developer mode in your Chrome browser. To do this:
 
-The packaged .jar created by Gradle is runnable.
+Chrome > Settings > Extensions > Check Developer mode box
+Click `Load unpacked extension` > Browse to chromeext dir > Click OK
