@@ -4,6 +4,8 @@ import com.consciousfish.quizgen.FileIO;
 import com.consciousfish.quizgen.interfaces.Question;
 import com.consciousfish.quizgen.interfaces.QuestionCreator;
 import edu.stanford.nlp.dcoref.CorefChain;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
@@ -35,6 +37,26 @@ public class ApposModifQuestionCreator implements QuestionCreator {
                 for (SemanticGraphEdge startEdge : dependencies.findAllRelns(EnglishGrammaticalRelations.APPOSITIONAL_MODIFIER)) {
                     if (test)
                         System.out.println("startEdge found: " + startEdge.toString());
+
+                    // We don't want to add questions for Appos Modifs in "()"
+                    int openIndex = startEdge.getTarget().beginPosition();
+                    boolean startsWithParenthesis = false;
+                    StringBuilder sentenceStrBuilder = new StringBuilder();
+                    for (CoreMap singleSentence : sentences) {
+                        sentenceStrBuilder.append(sentence.toString());
+                    }
+                    String sentencesStr = sentenceStrBuilder.toString();
+                    for (int i = openIndex; i >= 0; i--) {
+                        if (sentencesStr.toString().charAt(i) == '(') {
+                            startsWithParenthesis = true;
+                            break;
+                        }
+                        else if (sentencesStr.toString().charAt(i) == ',') {
+                            break;
+                        }
+                    }
+                    if (startsWithParenthesis)
+                        continue;
 
                     String question = "";
 
