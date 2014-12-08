@@ -1,3 +1,21 @@
+body {
+        margin: 0;
+        background-color: #EEE;
+    }
+
+#container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    min-height: 100%;
+    background-color: white;
+    padding: 20pt;
+
+    -webkit-box-shadow: 0px 0px 24px -6px rgba(50, 50, 50, 1);
+    -moz-box-shadow:    0px 0px 24px -6px rgba(50, 50, 50, 1);
+    box-shadow:         0px 0px 24px -6px rgba(50, 50, 50, 1);
+}
+
 .hidden {
     visibility: hidden;
 }
@@ -19,6 +37,10 @@ th, td {
     border-bottom:1px solid black;
 }
 
+td {
+    padding: 1.5em;
+}
+
 .answer_column {
     text-align: center;
 }
@@ -26,7 +48,12 @@ th, td {
 h2 {
     margin-left:auto;
     margin-right:auto;
+    margin-bottom: 0;
     text-align:center; 
     border-bottom: 1px solid black;
     width: 85%;
+}
+
+h1 {
+    margin-bottom: 0;
 }
